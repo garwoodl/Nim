@@ -33,8 +33,12 @@ def get_move_from_user(game: GameState) -> tuple[int]:
     return (pile_idx, objects_to_remove)
 
 
-def main():
-    game = GameState([10, 10])
+def two_player_nim(piles: list[int]) -> int:
+    """
+    Runs a single game of nim between two players.
+    Returns the winning player (in [1, 2])
+    """
+    game = GameState(piles)
     player = 1
     while True:
         print(game)
@@ -49,6 +53,11 @@ def main():
             player = 3 - player
     print("Game Over.")
     print(f"Player {player} wins!")
+    return player
+
+
+def main():
+    two_player_nim([5, 5])
 
 
 if __name__ == "__main__":
