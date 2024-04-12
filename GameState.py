@@ -14,7 +14,7 @@ class GameState:
     def __str__(self) -> str:
         s = ""
         for i, pile in enumerate(self.piles):
-            s += f"Pile {i}:\t{pile}\n"
+            s += f"Pile {i+1}:\t{pile}\n"
         return s
 
     def __eq__(self, other: 'GameState') -> bool:
@@ -23,6 +23,15 @@ class GameState:
         if len(self.piles) != len(other.piles):
             return False
         return all(x == y for x, y in zip(self.piles, other.piles))
+
+    def is_empty(self) -> bool:
+        '''
+        Returns True if and only if there are no stones in any pile
+        '''
+        for pile in self.piles:
+            if pile != 0:
+                return False
+        return True
 
     def is_legal_move(self, m: int, n: int) -> bool:
         """

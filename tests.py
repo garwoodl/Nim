@@ -1,6 +1,15 @@
 from nim_game import GameState
 
 
+def test_is_empty():
+    game1 = GameState([0, 0, 0, 0, 0])
+    game2 = GameState([0])
+    game3 = GameState([1])
+    assert game1.is_empty()
+    assert game2.is_empty()
+    assert not game3.is_empty()
+
+
 def test_eq():
     game1 = GameState([1, 2, 3])
     game2 = GameState([1, 2, 3])
