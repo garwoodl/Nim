@@ -1,4 +1,5 @@
 from nim_game import GameState
+from bots import get_legal_moves
 
 
 def test_is_empty():
@@ -33,6 +34,11 @@ def test_make_move():
     game1 = GameState(pile1)
     game1.make_move(0, 1)
     assert game1 == GameState([0, 5, 3])
+
+
+def test_get_legal_moves():
+    game = GameState([0, 1, 3])
+    assert get_legal_moves(game) is [(1, 1), (2, 1), (2, 2), (2, 3)]
 
 
 def main():

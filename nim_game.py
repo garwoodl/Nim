@@ -2,6 +2,7 @@
 This is the main file for the game of Nim
 """
 from GameState import GameState
+import bots
 
 
 def get_move_from_user(game: GameState) -> tuple[int]:
@@ -56,8 +57,43 @@ def two_player_nim(piles: list[int]) -> int:
     return player
 
 
+def player_vs_bot_nim(piles: list[int], user_first=True) -> int:
+    """
+    Runs a single game of nim between the user and computer
+    User determins whether the user goes first or second
+    Returns true iff the user wins
+    """
+    game = GameState(piles)
+    user_turn = user_first
+    while True:
+        print(game)
+        if user_turn:
+            print("Your turn...")
+            m, n = get_move_from_user(game)
+            game.make_move(m, n)
+        else:
+            move = bots.random_bot(game)
+            m, n = move
+            game.make_move(m, n)
+            print(f"Computer takes {n} stones from pile {m+1}")
+
+        if game.is_empty():
+            print("It ended!")
+            break
+        else:
+            user_turn = not user_turn
+    print("Game Over.")
+    if user_turn:
+        print("You win!")
+        return True
+    else:
+        print("You Lose!")
+        return False
+
+
 def main():
-    two_player_nim([5, 5])
+    # two_player_nim([5, 5])
+    player_vs_bot_nim([5, 5])
 
 
 if __name__ == "__main__":
