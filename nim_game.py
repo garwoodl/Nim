@@ -93,7 +93,7 @@ def player_vs_bot_nim(piles: list[int], user_first=True) -> int:
 
 def main():
     # two_player_nim([5, 5])
-    player_vs_bot_nim([5, 5])
+    player_vs_bot_nim([5, 5, 5])
 
 
 if __name__ == "__main__":
