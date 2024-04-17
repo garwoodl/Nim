@@ -1,5 +1,5 @@
 from nim_game import GameState
-from bots import get_legal_moves
+import bots
 
 
 def test_is_empty():
@@ -38,7 +38,16 @@ def test_make_move():
 
 def test_get_legal_moves():
     game = GameState([0, 1, 3])
-    assert get_legal_moves(game) is [(1, 1), (2, 1), (2, 2), (2, 3)]
+    assert bots.get_legal_moves(game) is [(1, 1), (2, 1), (2, 2), (2, 3)]
+
+
+def test_two_pile_bot():
+    game = GameState([0, 1, 3])
+    assert bots.two_pile_bot(game) == (2, 2)
+    game2 = GameState([100])
+    assert bots.two_pile_bot(game2) == (0, 100)
+    game3 = GameState([0, 0, 100])
+    assert bots.two_pile_bot(game3) == (2, 100)
 
 
 def main():
