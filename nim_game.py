@@ -34,12 +34,11 @@ def get_move_from_user(game: GameState) -> tuple[int]:
     return (pile_idx, objects_to_remove)
 
 
-def two_player_nim(piles: list[int]) -> int:
+def two_player_nim(game: GameState) -> int:
     """
     Runs a single game of nim between two players.
     Returns the winning player (in [1, 2])
     """
-    game = GameState(piles)
     player = 1
     while True:
         print(game)
@@ -57,13 +56,12 @@ def two_player_nim(piles: list[int]) -> int:
     return player
 
 
-def player_vs_bot_nim(piles: list[int], user_first=True) -> int:
+def player_vs_bot_nim(game: GameState, user_first=True) -> int:
     """
     Runs a single game of nim between the user and computer
     User determins whether the user goes first or second
     Returns true iff the user wins
     """
-    game = GameState(piles)
     user_turn = user_first
     while True:
         print(game)
@@ -72,7 +70,8 @@ def player_vs_bot_nim(piles: list[int], user_first=True) -> int:
             m, n = get_move_from_user(game)
             game.make_move(m, n)
         else:
-            move = bots.random_bot(game)
+            # move = bots.random_bot(game)
+            move = bots.two_pile_bot(game)
             m, n = move
             game.make_move(m, n)
             print(f"Computer takes {n} stones from pile {m+1}")
@@ -91,9 +90,24 @@ def player_vs_bot_nim(piles: list[int], user_first=True) -> int:
         return False
 
 
+def bot_vs_bot_nim(game: GameState, bot1='random', bot2='random', verbose=True):
+    """
+    Runs a single game of nim betwen two bots
+    The bot name must be in the list of valid bots
+    Prints statements if verbose
+    Returns true iff bot1 wins
+    """
+    # first assign the correct bots by making new functions bot1 and bot2
+
+    # then run the game
+
+    # return True if bot1 wins
+    ...
+
+
 def main():
     # two_player_nim([5, 5])
-    player_vs_bot_nim([5, 5, 5])
+    player_vs_bot_nim([3, 4, 5])
 
 
 if __name__ == "__main__":

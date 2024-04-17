@@ -47,4 +47,4 @@ def two_pile_bot(game: GameState) -> tuple[int]:
             return (pile2, b - a)
         elif a > b:
             return (pile1, a - b)
-    return None        
+    return None
