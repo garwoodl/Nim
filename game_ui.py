@@ -1,3 +1,6 @@
+"""
+Handles a user interface for playing the game. Maybe I'll experiment more later
+"""
 from GameState import GameState
 from bots import *
 import pygame
@@ -94,7 +97,7 @@ def handle_mouse_click(piles: list[int], buttons: list[Button]):
 
     for i, button in enumerate(buttons):
         if button.clicked:
-            # Prompt the user to enter the number of stones to remove from the selected pile
+            # Prompt the user to enter the number of s  tones to remove from the selected pile
             pile_index = i
             pile_size = piles[pile_index]
             num_stones = input(f"Enter number of stones to remove from Pile {pile_index + 1} (1-{pile_size}): ")
@@ -120,9 +123,16 @@ def main():
     running = True
     while running:
         for event in pygame.event.get():
-            if event.type == K_BACKSPACE:
+            if event.type == pygame.QUIT:
                 running = False
-            elif event.type == MOUSEBUTTONDOWN and event.button == 1:  # Left mouse button
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_BACKSPACE:
+                print("Backspace")
+                running = False
+
+        if event.type == MOUSEBUTTONDOWN:
+            if event.button == 1:  # Left mouse button
                 handle_mouse_click(piles, buttons)
 
         draw_game_board(piles, screen, buttons)
