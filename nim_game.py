@@ -97,17 +97,56 @@ def bot_vs_bot_nim(game: GameState, bot1='random', bot2='random', verbose=True):
     Prints statements if verbose
     Returns true iff bot1 wins
     """
-    # first assign the correct bots by making new functions bot1 and bot2
+    # Define the bot functions based on their names
+    def get_bot_function(bot_name):
+        if bot_name == 'random':
+            return bots.random_bot
+        elif bot_name == 'two_pile':
+            return bots.two_pile_bot
+        elif bot_name == 'nim_sum':
+            return bots.nim_sum_bot
+        else:
+            raise ValueError(f"Unknown bot: {bot_name}")
 
-    # then run the game
+    bot1_function = get_bot_function(bot1)
+    bot2_function = get_bot_function(bot2)
 
-    # return True if bot1 wins
-    ...
+    current_bot = bot1_function
+    next_bot = bot2_function
+
+    while True:
+        if verbose:
+            print(game)
+
+        # Determine the move based on the current bot
+        move = current_bot(game)
+
+        # Make the move
+        m, n = move
+        game.make_move(m, n)
+
+        if verbose:
+            print(f"{current_bot.__name__} takes {n} stones from pile {m + 1}")
+
+        # Check if the game is over
+        if game.is_empty():
+            print("Game Over.")
+            return current_bot == bot1_function  # bot1 wins if it's its turn
+
+        # Swap bots for the next turn
+        current_bot, next_bot = next_bot, current_bot
 
 
 def main():
     # two_player_nim([5, 5])
-    player_vs_bot_nim([3, 4, 5])
+    # player_vs_bot_nim([3, 4, 5])
+    bot1 = 'nim_sum'
+    bot2 = 'two_pile'
+    outcome = bot_vs_bot_nim(GameState([3, 4, 5]), bot1, bot2, True)
+    if outcome:
+        print("Bot1:", bot1, "wins!")
+    else:
+        print("Bot2:", bot2, "wins!")
 
 
 if __name__ == "__main__":
