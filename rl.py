@@ -83,7 +83,7 @@ class NimQLearningBot:
 bot = NimQLearningBot(num_piles=3, max_stones=5)
 
 # Train the bot by playing multiple games
-num_episodes = 10000
+num_episodes = 100000
 for _ in range(num_episodes):
     game = GameState([3, 4])  # Initialize the game state
     bot.play_game(game)
